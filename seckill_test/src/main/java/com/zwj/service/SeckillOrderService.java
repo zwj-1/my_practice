@@ -39,4 +39,11 @@ public interface SeckillOrderService extends IService<SeckillOrder> {
      * @return
      */
     Boolean updatePayStatus(String userId);
+
+    /**
+     * 查询微信支付状态
+     * @param orderId
+     * @return
+     */
+    Boolean findOrderPayStatus(String orderId,String userId);
 }

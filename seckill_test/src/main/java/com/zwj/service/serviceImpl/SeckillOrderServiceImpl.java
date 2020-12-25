@@ -7,12 +7,14 @@ import com.zwj.pojo.seckill.SeckillOrder;
 import com.zwj.pojo.seckill.SeckillStatus;
 import com.zwj.service.SeckillGoodsService;
 import com.zwj.service.SeckillOrderService;
+import com.zwj.service.WXPayService;
 import com.zwj.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 秒杀订单服务类
@@ -30,6 +32,8 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
     private IdWorker idWorker;
     @Autowired
     private MultiThreadingCreateOrder multiThreadingCreateOrder;
+    @Autowired
+    private WXPayService wxPayService;
 
     @Override
     public void saveSeckillOrder(SeckillOrder seckillOrder) {
@@ -80,6 +84,19 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
             redisTemplate.boundHashOps("UserQueueStatus").delete(userId);
             redisTemplate.boundHashOps("SeckillOrder").delete(userId);
             redisTemplate.boundHashOps("UserQueueCount").delete(userId);
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean findOrderPayStatus(String orderId,String userId) {
+        final String wxPayStatus="SUCCESS";
+        final String tradeState="trade_state";
+        Map<String, String> orderPayMap = wxPayService.findOrder(orderId);
+        if(orderPayMap!=null){
+            if(wxPayStatus.equals(orderPayMap.get(tradeState))){
+                Boolean b = updatePayStatus(userId);
+            }
         }
         return true;
     }

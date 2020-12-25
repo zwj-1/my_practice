@@ -66,7 +66,7 @@ public class test {
     }
     @Test
     public void test8(){
-        Map<String, String> order = wxPayService.findOrder("13265131096111");
+        Map<String, String> order = wxPayService.findOrder("13265131096112");
     }
     @Test
     public void test9(){
