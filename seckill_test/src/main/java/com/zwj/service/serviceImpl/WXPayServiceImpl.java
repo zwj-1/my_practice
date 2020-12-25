@@ -27,7 +27,7 @@ public class WXPayServiceImpl implements WXPayService {
 
     /**
      * 注意事项：
-     * 1、restTemplate先配置ssl
+     * 1、restTemplate先配置https
      * 2、RestTemplate  中默认字符格式是 ios-8859-1，配置字符格式为utf-8
      *
      * @param orderId

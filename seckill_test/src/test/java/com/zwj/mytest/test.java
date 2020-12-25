@@ -66,6 +66,7 @@ public class test {
     }
     @Test
     public void test8(){
+        //13265131096112订单支付成功
         Map<String, String> order = wxPayService.findOrder("13265131096112");
     }
     @Test
