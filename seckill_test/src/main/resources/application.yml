@@ -1,0 +1,205 @@
+server:
+  port: 8080
+# 加解密根密码
+#jasypt:
+#  encryptor:
+#    password: pigx #根密码
+# redis 相关
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 1000MB #总文件大小
+      max-file-size: 100MB #单个文件大小
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    timeout: 10000ms
+#    database: 3
+    # 这里标明使用lettuce配置
+    lettuce:
+      pool:
+        #连接池最大连接数（使用负值表示没有限制）
+        max-active: 200
+        #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        #连接池中的最大空闲连接
+        max-idle: 10
+        #连接池中的最小空闲连接
+        min-idle: 0
+        #连接超时时间（毫秒）
+  datasource:
+    url: jdbc:mysql://localhost/zwj?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    druid:
+      # 下面为连接池的补充设置，应用到上面所有数据源中
+      # 初始化大小，最小，最大
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=${spring.datasource.decrypt.enable};config.decrypt.key=${spring.datasource.decrypt.key}
+      # 合并多个DruidDataSource的监控数据
+      useGlobalDataSourceStat: true
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+  rabbitmq:
+    host: 10.35.11.168
+    password: 123456
+    port: 5672
+    publisher-confirms: true
+    publisher-returns: true
+    username: admin
+    virtual-host: /
+    template:
+      retry:
+        enabled: true
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+
+rabbitmq:
+  exchange-key: zhongziashengOa
+  queue-name: zzsres
+  routing-key: DirectRouting
+
+
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# feign 配置
+#feign:
+#  hystrix:
+#    enabled: true
+#  okhttp:
+#    enabled: true
+#  httpclient:
+#    enabled: false
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 10000
+#        readTimeout: 10000
+#  compression:
+#    request:
+#      enabled: true
+#    response:
+#      enabled: true
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          strategy: SEMAPHORE
+#          thread:
+#            timeoutInMilliseconds: 60000
+#  shareSecurityContext: true
+#
+##请求处理的超时时间
+#ribbon:
+#  ReadTimeout: 10000
+#  ConnectTimeout: 10000
+
+# mybaits-plus配置
+mybatis-plus:
+  # MyBatis Mapper所对应的XML文件位置
+  mapper-locations: classpath:/mapper/*Mapper.xml,classpath:/mapper/**/*Mapper.xml
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      # 主键类型 0:数据库ID自增 1.未定义 2.用户输入 3 id_worker 4.uuid 5.id_worker字符串表示
+      id-type: 4
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: 1
+      # 默认数据库表下划线命名
+      table-underline: true
+      # 逻辑删除配置
+      # 逻辑删除全局值（1表示已删除，这也是Mybatis Plus的默认配置）
+      logic-delete-value: 1
+      # 逻辑未删除全局值（0表示未删除，这也是Mybatis Plus的默认配置）
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#swagger公共信息
+#swagger:
+#  title:  Swagger API
+#  description: Spring Cloud微服务开发
+#  version: @project.version@
+#  license: Powered By
+#  licenseUrl:
+#  terms-of-service-url:
+#  contact:
+#    name:
+#    email:
+#    url:
+#  authorization:
+#    name: OAuth
+#    auth-regex: ^.*$
+#    authorization-scope-list:
+#      - scope: server
+#        description: server all
+#    token-url-list:
+#      - http://localhost:8850/auth/oauth/token
+
+## spring security 配置
+security:
+  oauth2:
+    client:
+      # 默认放行url,如果子模块重写这里的配置就会被覆盖
+      ignore-urls:
+        - /actuator/**
+        - /v2/api-docs
+        - /v2/api-docs-ext
+        - /druid/**
+    resource:
+      loadBalanced: true
+      token-info-uri: http://auth-server/oauth/check_token
+
+druid:
+  username: druid
+  password: yuntu@123
+
+logging:
+  level:
+    druid:
+      sql:
+        Statement: DEBUG
+
+face:
+  ak: 4981105601369786970
+  sk: 4981105601369786970
+  ipAndPort: http://183.67.4.66:5000
+
