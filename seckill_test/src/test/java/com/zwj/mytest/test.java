@@ -61,7 +61,7 @@ public class test {
     private WXPayService wxPayService;
     @Test
     public void test7(){
-        Map<String, String> aNative = wxPayService.createNative("13265131096112", 1, null, null);
+        Map<String, String> aNative = wxPayService.createNative("13265131096113", 1, null, null);
 
     }
     @Test
