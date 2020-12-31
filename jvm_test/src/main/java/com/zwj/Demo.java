@@ -4,11 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Demo {
-
+    Byte[] b1=new Byte[1024*128];
     public static void main(String[] args) {
-        List<DemoEntity> list=new ArrayList<DemoEntity>();
-        while (true){
-            list.add( new DemoEntity());
+        lookJconsoleChange();
+    }
+
+    /**内存溢出设置值:-Xms60m -Xmx60m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\Users\zzyt\Desktop\error
+     * 测试内存溢出
+     */
+    private static void testMemoryOut() {
+        List<DemoEntity> list = new ArrayList<DemoEntity>();
+        while (true) {
+            list.add(new DemoEntity());
+        }
+    }
+
+    /**
+     * 观察jconsole内存，堆栈信息变化情况
+     */
+    private static void lookJconsoleChange() {
+        try {
+            Thread.sleep(5000);
+            System.out.println("start...");
+            List<Demo> list = new ArrayList<Demo>();
+            for (int i = 0; i < 1000; i++) {
+                Thread.sleep(100);
+                list.add(new Demo());
+            }
+            System.out.println("end...");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
