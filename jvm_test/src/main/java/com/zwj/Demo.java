@@ -6,7 +6,8 @@ import java.util.List;
 public class Demo {
     Byte[] b1=new Byte[1024*128];
     public static void main(String[] args) {
-        lookJconsoleChange();
+        //lookJconsoleChange();
+        test1();
     }
 
     /**内存溢出设置值:-Xms60m -Xmx60m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\Users\zzyt\Desktop\error
@@ -36,4 +37,14 @@ public class Demo {
             e.printStackTrace();
         }
     }
+
+    private static void test1(){
+        String t1="abc";
+        String t2="abc";
+        System.out.println(t1==t2);
+        String t3=new String("abc");
+        // intern方法，将t3添加到运行时常量池
+        System.out.println(t1==t3.intern());;
+    }
+
 }

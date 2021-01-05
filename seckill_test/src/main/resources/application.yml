@@ -68,11 +68,11 @@ spring:
             multi-statement-allow: true
   rabbitmq:
     host: 127.0.0.1
-    password: 123456
     port: 5672
+    username: zwj
+    password: zwj
     publisher-confirms: true
     publisher-returns: true
-    username: admin
     virtual-host: /
     template:
       retry:
