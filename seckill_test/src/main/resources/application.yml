@@ -71,7 +71,9 @@ spring:
     port: 5672
     username: zwj
     password: zwj
+    #确认消息已发送到交换机(Exchange)
     publisher-confirms: true
+    #确认消息已发送到队列(Queue)
     publisher-returns: true
     virtual-host: /
     template:
@@ -82,11 +84,11 @@ spring:
       simple:
         acknowledge-mode: manual
 
-
-rabbitmq:
-  exchange-key: zhongziashengOa
-  queue-name: zzsres
-  routing-key: DirectRouting
+#
+#rabbitmq:
+#  exchange-key: zhongziashengOa
+#  queue-name: zzsres
+#  routing-key: DirectRouting
 
 
 

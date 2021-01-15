@@ -1,8 +1,10 @@
 package com.zwj.mytest;
 
+import cn.hutool.core.util.XmlUtil;
 import com.zwj.pojo.WXpayDo;
 import com.zwj.pojo.seckill.SeckillGoods;
 import com.zwj.pojo.seckill.SeckillStatus;
+import com.zwj.service.RabbitmqService;
 import com.zwj.service.SeckillGoodsService;
 import com.zwj.service.SeckillOrderService;
 import com.zwj.service.WXPayService;
@@ -72,5 +74,18 @@ public class test {
     @Test
     public void test9(){
         wxPayService.openOrder("13265131096111");
+    }
+
+    @Autowired
+    private RabbitmqService rabbitmqService;
+    @Test
+    public void test10(){
+        boolean b = rabbitmqService.sendDirectMessage();
+        System.out.println(b);
+    }
+    @Test
+    public void test11(){
+//        rabbitmqService.sendTopicMessage("topicExchange","topic.man");
+        rabbitmqService.sendTopicMessage("topicExchange","topic.woman");
     }
 }
