@@ -6,6 +6,9 @@ import com.zwj.service.RabbitmqService;
 import com.zwj.service.WXPayService;
 import org.apache.commons.lang.StringUtils;
 import org.omg.CORBA.OBJ_ADAPTER;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +54,19 @@ public class RabbitmqServiceImpl implements RabbitmqService {
     @Override
     public boolean sendTopicMessage(String exchange, String routingKey) {
         rabbitTemplate.convertAndSend(exchange, routingKey, getParam());
+        return true;
+    }
+
+    @Override
+    public boolean sendTopicDelayMessage(String exchange, String routingKey) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, getParam(), new MessagePostProcessor() {
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                message.getMessageProperties().setExpiration(String.valueOf(60000));
+                return message;
+            }
+        });
+
         return true;
     }
 }

@@ -22,4 +22,12 @@ public interface RabbitmqService {
      * @return
      */
     boolean sendTopicMessage(String exchange,String routingKey);
+
+    /**
+     * 测试mq消息延迟发送-topic
+     * @param exchange
+     * @param routingKey
+     * @return
+     */
+    boolean sendTopicDelayMessage(String exchange, String routingKey);
 }

@@ -88,4 +88,8 @@ public class test {
 //        rabbitmqService.sendTopicMessage("topicExchange","topic.man");
         rabbitmqService.sendTopicMessage("topicExchange","topic.woman");
     }
+    @Test
+    public void test12(){
+        rabbitmqService.sendTopicDelayMessage("topicExchange","topic.woman");
+    }
 }

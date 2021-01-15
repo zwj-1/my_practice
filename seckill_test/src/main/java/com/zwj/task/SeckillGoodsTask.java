@@ -19,8 +19,8 @@ import java.util.Set;
  * @author zwj
  * @date 2020-12-22
  */
-@Service
-@EnableScheduling
+//@Service
+//@EnableScheduling
 public class SeckillGoodsTask {
 
     @Autowired
