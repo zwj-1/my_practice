@@ -9,6 +9,10 @@ import com.rabbitmq.client.Channel;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * topic.woman队列监听类
+ * 自动签收消息
+ */
 @Component
 @RabbitListener(queues = "topic.woman")
 public class TopicWomanReceiver {
@@ -16,12 +20,5 @@ public class TopicWomanReceiver {
     public void process(Map testMessage, Channel channel, Message message) throws IOException {
         System.out.println("rabbit-topic消息接收到了");
         System.out.println("TopicWomanReceiver消费者收到消息  : " + testMessage.toString());
-        try {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        } catch (IOException e) {
-            // 出错了，发nack，并通知MQ把消息塞回的队列头部（不是尾部）
-           channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
-            e.printStackTrace();
-        }
     }
 }

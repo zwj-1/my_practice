@@ -5,7 +5,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
-
+/**
+ * topic.man队列监听类
+ * 自动签收消息
+ */
 @Component
 @RabbitListener(queues = "topic.man")
 public class TopicManReceiver {

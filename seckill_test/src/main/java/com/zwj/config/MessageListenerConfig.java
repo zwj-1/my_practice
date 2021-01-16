@@ -12,29 +12,33 @@ import org.springframework.context.annotation.Configuration;
  * @author zwj
  * @date 2020-1-14
  */
-//@Configuration
+@Configuration
 public class MessageListenerConfig {
     @Autowired
     private CachingConnectionFactory connectionFactory;
+    /**自定义手动确认消息业务处理类*/
     @Autowired
-    private MyAckReceiver myAckReceiver;//消息接收处理类
+    private MyAckReceiver myAckReceiver;
 
     @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
         container.setConcurrentConsumers(1);
         container.setMaxConcurrentConsumers(1);
-        container.setAcknowledgeMode(AcknowledgeMode.MANUAL); // RabbitMQ默认是自动确认，这里改为手动确认消息
-        //设置一个队列
-        container.setQueueNames("TestDirectQueue");
-        //如果同时设置多个如下： 前提是队列都是必须已经创建存在的
-        //  container.setQueueNames("TestDirectQueue","TestDirectQueue2","TestDirectQueue3");
 
+        // RabbitMQ默认是自动确认，这里改为手动确认消息
+        container.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        //1、设置一个队列
+        //container.setQueueNames("topic.woman");
 
-        //另一种设置队列的方法,如果使用这种情况,那么要设置多个,就使用addQueues
-        //container.setQueues(new Queue("TestDirectQueue",true));
-        //container.addQueues(new Queue("TestDirectQueue2",true));
-        //container.addQueues(new Queue("TestDirectQueue3",true));
+        //2、同时设置多个如下：前提是队列都是必须已经创建存在的
+        container.setQueueNames("topic.woman","topic.man");
+
+        //3、同时设置多个如下,如果使用这种情况,那么要设置多个,就使用addQueues
+       /* container.setQueues(new Queue("TestDirectQueue",true));
+        container.addQueues(new Queue("TestDirectQueue2",true));
+        container.addQueues(new Queue("TestDirectQueue3",true));*/
+
         container.setMessageListener(myAckReceiver);
 
         return container;
