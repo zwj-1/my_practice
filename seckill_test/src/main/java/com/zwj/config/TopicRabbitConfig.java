@@ -38,7 +38,7 @@ public class TopicRabbitConfig {
         // 1、若队列设置了过期时间，单条消息也设置了过期时间，已时间短的为准
         // 2、设置队列过期时间参数：x-message-ttl
         // 3、当消息处于队列头部时，才会过期删除
-        Map<String,Object> param=new HashMap<>();
+        Map<String,Object> param=new HashMap<>(2);
         param.put("x-message-ttl",50000);
         return new Queue(TopicRabbitConfig.TTL, true,false,false,param);
     }
@@ -65,8 +65,6 @@ public class TopicRabbitConfig {
 
     @Bean
     Binding bindingExchangeMessage3() {
-        // 将secondQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
-        // 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
         return BindingBuilder.bind(thirdlyQueue()).to(exchange()).with("ttl");
     }
 }
