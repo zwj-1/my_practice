@@ -13,8 +13,8 @@ import java.util.Map;
  * topic.woman队列监听类
  * 自动签收消息
  */
-@Component
-@RabbitListener(queues = "topic.woman")
+//@Component
+//@RabbitListener(queues = "topic.woman")
 public class TopicWomanReceiver {
     @RabbitHandler
     public void process(Map testMessage, Channel channel, Message message) throws IOException {

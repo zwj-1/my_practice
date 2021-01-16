@@ -69,4 +69,17 @@ public class RabbitmqServiceImpl implements RabbitmqService {
 
         return true;
     }
+
+    @Override
+    public boolean sendTopicExpirationMessage(String exchange, String routingKey, String time) {
+        MessagePostProcessor messagePostProcessor = new MessagePostProcessor() {
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                message.getMessageProperties().setExpiration(time);
+                return message;
+            }
+        };
+        rabbitTemplate.convertAndSend(exchange, routingKey, getParam(), messagePostProcessor);
+        return true;
+    }
 }

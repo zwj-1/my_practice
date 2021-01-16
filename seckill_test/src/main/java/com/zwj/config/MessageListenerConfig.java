@@ -25,8 +25,10 @@ public class MessageListenerConfig {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
         container.setConcurrentConsumers(1);
         container.setMaxConcurrentConsumers(1);
-
+        // 消费端设置限流--必须手动确定消息
+        container.setPrefetchCount(1);
         // RabbitMQ默认是自动确认，这里改为手动确认消息
+        //若yml中全局设置了手动确认消息，则此处可以不设置
         container.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         //1、设置一个队列
         //container.setQueueNames("topic.woman");

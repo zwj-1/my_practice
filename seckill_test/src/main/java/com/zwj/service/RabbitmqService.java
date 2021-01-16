@@ -30,4 +30,13 @@ public interface RabbitmqService {
      * @return
      */
     boolean sendTopicDelayMessage(String exchange, String routingKey);
+
+ /**
+  * 测试mq单条消息过期时间
+  * @param exchange
+  * @param routingKey
+  * @param time
+  * @return
+  */
+ boolean sendTopicExpirationMessage(String exchange, String routingKey,String time);
 }

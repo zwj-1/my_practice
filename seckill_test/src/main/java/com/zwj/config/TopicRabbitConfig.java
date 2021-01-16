@@ -1,11 +1,12 @@
 package com.zwj.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Topic交换机
@@ -20,6 +21,7 @@ public class TopicRabbitConfig {
      */
     private final static String MAN = "topic.man";
     private final static String WOMAN = "topic.woman";
+    private final static String TTL = "ttl";
 
     @Bean
     public Queue firstQueue() {
@@ -29,6 +31,16 @@ public class TopicRabbitConfig {
     @Bean
     public Queue secondQueue() {
         return new Queue(TopicRabbitConfig.WOMAN, true);
+    }
+    @Bean
+    public Queue thirdlyQueue() {
+        // 设置队列消息过期时间
+        // 1、若队列设置了过期时间，单条消息也设置了过期时间，已时间短的为准
+        // 2、设置队列过期时间参数：x-message-ttl
+        // 3、当消息处于队列头部时，才会过期删除
+        Map<String,Object> param=new HashMap<>();
+        param.put("x-message-ttl",50000);
+        return new Queue(TopicRabbitConfig.TTL, true,false,false,param);
     }
 
     @Bean
@@ -51,4 +63,10 @@ public class TopicRabbitConfig {
         return BindingBuilder.bind(secondQueue()).to(exchange()).with("topic.#");
     }
 
+    @Bean
+    Binding bindingExchangeMessage3() {
+        // 将secondQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
+        // 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
+        return BindingBuilder.bind(thirdlyQueue()).to(exchange()).with("ttl");
+    }
 }

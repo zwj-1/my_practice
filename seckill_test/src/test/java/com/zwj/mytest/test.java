@@ -95,4 +95,20 @@ public class test {
     public void test12(){
         rabbitmqService.sendTopicDelayMessage("topicExchange","topic.woman");
     }
+    @Test
+    public void test13(){
+        for (int i = 0; i < 10; i++) {
+            rabbitmqService.sendTopicMessage("topicExchange","topic.woman");
+        }
+    }
+    @Test
+    public void test14(){
+        // 测试队列过期时间
+        rabbitmqService.sendTopicMessage("topicExchange","ttl");
+    }
+    @Test
+    public void test15(){
+        //测试单条消息的过期时间
+        rabbitmqService.sendTopicExpirationMessage("topicExchange","ttl","5000");
+    }
 }

@@ -82,7 +82,11 @@ spring:
       mandatory: true
     listener:
       simple:
+#        全局设置手动消息确认
         acknowledge-mode: manual
+#      direct:
+#        消费端设置限流
+#        prefetch: 1
 
 #
 #rabbitmq:
