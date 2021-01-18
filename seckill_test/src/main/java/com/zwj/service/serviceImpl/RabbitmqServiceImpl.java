@@ -58,11 +58,11 @@ public class RabbitmqServiceImpl implements RabbitmqService {
     }
 
     @Override
-    public boolean sendTopicDelayMessage(String exchange, String routingKey) {
+    public boolean sendTopicDelayMessage(String exchange, String routingKey, String time) {
         rabbitTemplate.convertAndSend(exchange, routingKey, getParam(), new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
-                message.getMessageProperties().setExpiration(String.valueOf(60000));
+                message.getMessageProperties().setExpiration(time);
                 return message;
             }
         });

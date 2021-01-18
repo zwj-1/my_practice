@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +107,9 @@ public class test {
 
     @Test
     public void test12() {
-        rabbitmqService.sendTopicDelayMessage("topicExchange", "topic.woman");
+        // 测试延迟队列 -- 队列已设置过期时间10秒
+        rabbitmqService.sendTopicDelayMessage("topicExchange", "dlx.normal","60000");
+        System.out.println("message send time:"+ LocalDateTime.now());
     }
 
     @Test

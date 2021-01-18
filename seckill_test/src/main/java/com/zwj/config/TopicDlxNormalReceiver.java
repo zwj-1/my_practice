@@ -15,8 +15,8 @@ import java.util.Map;
  * @date 2020-1-18
  *
  */
-@Component
-@RabbitListener(queues = "dlx.normal")
+//@Component
+//@RabbitListener(queues = "dlx.normal")
 public class TopicDlxNormalReceiver {
     @RabbitHandler
     public void process(Map testMessage, Channel channel, Message message) throws IOException {

@@ -9,42 +9,48 @@ import java.util.Map;
  * @date 2021-1-14
  */
 public interface RabbitmqService {
-   /**
-    * 测试mq消息发送-Direct
-    * @return
-    */
+    /**
+     * 测试mq消息发送-Direct
+     *
+     * @return
+     */
     boolean sendDirectMessage();
 
     /**
      * 测试mq消息发送-topic
+     *
      * @param exchange
      * @param routingKey
      * @return
      */
-    boolean sendTopicMessage(String exchange,String routingKey);
+    boolean sendTopicMessage(String exchange, String routingKey);
 
     /**
      * 测试mq消息延迟发送-topic
+     * 延迟队列实现原理：1、设置队列过期时间；2、过期后消息发送到死信。3、监听死信队列
+     *
      * @param exchange
      * @param routingKey
      * @return
      */
-    boolean sendTopicDelayMessage(String exchange, String routingKey);
+    boolean sendTopicDelayMessage(String exchange, String routingKey, String time);
 
- /**
-  * 测试mq单条消息过期时间
-  * @param exchange
-  * @param routingKey
-  * @param time
-  * @return
-  */
- boolean sendTopicExpirationMessage(String exchange, String routingKey,String time);
+    /**
+     * 测试mq单条消息过期时间
+     *
+     * @param exchange
+     * @param routingKey
+     * @param time
+     * @return
+     */
+    boolean sendTopicExpirationMessage(String exchange, String routingKey, String time);
 
- /**
-  * 测试死信队列
-  * @param exchange
-  * @param routingKey
-  * @return
-  */
- boolean sendTopicDlxMessage(String exchange, String routingKey);
+    /**
+     * 测试死信队列
+     *
+     * @param exchange
+     * @param routingKey
+     * @return
+     */
+    boolean sendTopicDlxMessage(String exchange, String routingKey);
 }
