@@ -65,6 +65,10 @@ public class TopicRabbitConfig {
 
     /**
      * 死信队列
+     * 死信队列和死信交换机其实就是一个正常的队列和交换机，再需要死信跳转的队列中设置参数
+     * param.put("x-dead-letter-exchange", "dlxExchange");dlxExchange为死信交换机
+     * 这样当正常队列1、消息过期，2、消息拒收且不放回队列，2、队列消息条数超长部分消息就会由
+     * 死信交换机路由到死信队列。
      *
      * @return
      */
