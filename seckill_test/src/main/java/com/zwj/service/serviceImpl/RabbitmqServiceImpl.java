@@ -82,4 +82,10 @@ public class RabbitmqServiceImpl implements RabbitmqService {
         rabbitTemplate.convertAndSend(exchange, routingKey, getParam(), messagePostProcessor);
         return true;
     }
+
+    @Override
+    public boolean sendTopicDlxMessage(String exchange, String routingKey) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, getParam());
+        return true;
+    }
 }

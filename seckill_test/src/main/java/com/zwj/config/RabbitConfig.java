@@ -26,7 +26,7 @@ public class RabbitConfig {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
                 if (ack) {
-                    System.out.println("message is success!");
+                    System.out.println("exchange message is success!");
                 } else {
                     System.out.println("message is fails!");
                     System.out.println("ConfirmCallback:     " + "相关数据：" + correlationData);

@@ -39,4 +39,12 @@ public interface RabbitmqService {
   * @return
   */
  boolean sendTopicExpirationMessage(String exchange, String routingKey,String time);
+
+ /**
+  * 测试死信队列
+  * @param exchange
+  * @param routingKey
+  * @return
+  */
+ boolean sendTopicDlxMessage(String exchange, String routingKey);
 }

@@ -79,6 +79,7 @@ spring:
     template:
       retry:
         enabled: true
+#        触发回调函数
       mandatory: true
     listener:
       simple:
