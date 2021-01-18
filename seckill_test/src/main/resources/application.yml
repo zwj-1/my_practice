@@ -77,6 +77,7 @@ spring:
     publisher-returns: true
     virtual-host: /
     template:
+      # 开启重试
       retry:
         enabled: true
 #        触发回调函数
