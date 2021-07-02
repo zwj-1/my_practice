@@ -3,8 +3,8 @@ package com.zwj.common.util;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
-import com.zwj.common.easyExcelLitener.EasyExcelListener;
-import com.zwj.common.easyExcelLitener.ExcelListener;
+import com.zwj.common.litener.easyExcel.EasyExcelListener;
+import com.zwj.common.litener.easyExcel.ExcelListener;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
