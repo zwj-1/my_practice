@@ -48,6 +48,6 @@ public class WXpayController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new HashMap();
+        return new HashMap<>(16);
     }
 }

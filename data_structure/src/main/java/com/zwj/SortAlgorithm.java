@@ -1,6 +1,7 @@
 package com.zwj;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 8 种排序算法
@@ -21,6 +22,7 @@ public class SortAlgorithm {
 //        bubbleSort(a);
         // 快速排序
 //        System.out.println(Arrays.toString(quickSort(a, 0, a.length - 1)));
+       mergeSort(a,0,a.length-1);
     }
 
     /**
@@ -210,5 +212,53 @@ public class SortAlgorithm {
      */
     private static void mergeSort(int[] a) {
 
+    }
+    private static void mergeSort(int[] numbers, int left, int right) {
+        int t = 1;// 每组元素个数
+        int size = right - left + 1;
+        while (t < size) {
+            int s = t;// 本次循环每组元素个数
+            t = 2 * s;
+            int i = left;
+            while (i + (t - 1) < size) {
+                merge(numbers, i, i + (s - 1), i + (t - 1));
+                i += t;
+            }
+            if (i + (s - 1) < right)
+                merge(numbers, i, i + (s - 1), right);
+        }
+        System.out.println(Arrays.toString(numbers));
+    }
+    private static void merge(int[] data, int p, int q, int r) {
+        int[] B = new int[data.length];
+        int s = p;
+        int t = q + 1;
+        int k = p;
+        while (s <= q && t <= r) {
+            if (data[s] <= data[t]) {
+                B[k] = data[s];
+                s++;
+            } else {
+                B[k] = data[t];
+                t++;
+            }
+            k++;
+        }
+        if (s == q + 1)
+            B[k++] = data[t++];
+        else
+            B[k++] = data[s++];
+        for (int i = p; i <= r; i++)
+            data[i] = B[i];
+    }
+
+    private static void getMap(String[] args) {
+       HashMap<String,String> map=new HashMap(16);
+        String s = map.get("1");
+        map.put("1", "1");
+        Map<String, String> map1 = Collections.synchronizedMap(map);
+        ConcurrentHashMap<String, String> cMap = new ConcurrentHashMap<String, String>();
+        cMap.put("1","1");
+        cMap.get("1");
     }
 }
