@@ -10,7 +10,7 @@ public class LazySingleton {
     /**
      * 保证 instance 在所有线程中同步
      */
-    private static volatile LazySingleton instance = null;
+    private volatile static  LazySingleton instance = null;
 
     /**
      * private 避免类在外部被实例化
@@ -18,9 +18,13 @@ public class LazySingleton {
     private LazySingleton() {
     }
 
-    public static synchronized LazySingleton getInstance() {
+    public static  LazySingleton getInstance() {
         if (instance == null) {
-            instance = new LazySingleton();
+            synchronized (LazySingleton.class){
+                if(null==instance){
+                    instance = new LazySingleton();
+                }
+            }
         }
         return instance;
     }

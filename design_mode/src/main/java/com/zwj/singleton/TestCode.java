@@ -7,7 +7,7 @@ public class TestCode {
     public static void main(String[] args) {
         LazySingleton instance = LazySingleton.getInstance();
         System.out.println("饿汉模式加载(用时再实例化)：" + instance);
-        System.out.println("饱汉模式加载(类装载时已实例化)：" + HungrySingleton.getinstance());
+        System.out.println("饱汉模式加载(类装载时已实例化)：" + HungrySingleton.getInstance());
 
         {
             // 框架窗体 JFrame 组件
