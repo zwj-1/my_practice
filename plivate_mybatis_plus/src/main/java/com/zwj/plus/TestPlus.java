@@ -26,9 +26,11 @@ public class TestPlus implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         //执行业务逻辑之前的操作....
+
         //执行具体的业务逻辑
         invocation.proceed();
         // 执行业务逻辑之后的操作...
+
         return null;
     }
 }
