@@ -58,7 +58,7 @@ public class TopicRabbitConfig {
         param.put("x-message-ttl", 10000);
         // 队列最大长度
         param.put("x-max-length", 10);
-        // 死信队列
+        // 死信交换机--超时就转发到死信交换机中
         param.put("x-dead-letter-exchange", "dlxExchange");
         return new Queue(TopicRabbitConfig.DLX_NORMAL, true, false, false, param);
     }
