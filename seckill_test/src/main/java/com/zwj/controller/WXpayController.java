@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class WXpayController {
      * @return
      */
     @RequestMapping("/notify")
-    public Map notifyLogic(HttpServletRequest request){
+    public Map notifyLogic(HttpServletRequest request, HttpServletResponse response){
         System.out.println("支付成功回调");
         InputStream inputStream;
         try {
@@ -45,6 +46,9 @@ public class WXpayController {
             String result = new String(outputStream.toByteArray(),"utf-8");
             Map<String, String> map = WXPayUtil.xmlToMap(result);
             //orderService.updatePayStatus(map.get("out_trade_no"),map.get("transaction_id"));//更新订单状态
+
+            // 回调成功通知微信服务
+            response.getWriter().write("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
         } catch (Exception e) {
             e.printStackTrace();
         }
