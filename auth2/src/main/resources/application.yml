@@ -1,10 +1,18 @@
 server:
   port: 8888
+
+#oauth2权限配置
 security:
   oauth2:
+    token:
+      expireSeconds: 7200
+      refreshExpireSeconds: 86400
     authorization:
       check-token-access: true
-
+    client:
+      # 默认放行url,如果子模块重写这里的配置就会被覆盖
+      ignore-urls:
+        - /zwj/addMember
 spring:
   datasource:
     name: test

@@ -1,7 +1,7 @@
 package com.zwj.resouce;
 
+import com.zwj.constant.SecurityConstants;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -9,7 +9,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 
 /**
- * Created by ahmed on 30.5.18.
+ * oauth拦截资源配置
+ * @author zwj
  */
 @EnableResourceServer
 @Configuration
@@ -18,7 +19,7 @@ public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapte
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("zwj_auth_id");
+        resources.resourceId(SecurityConstants.RESOURCE_ID);
 
     }
 

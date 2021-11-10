@@ -22,12 +22,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         // 获取登录用户信息
-        UserEntity userEntity = userService.findByUserName(username);
+        UserEntity userEntity = userService.findUserInfo(username);
 
         if (userEntity == null) {
             throw new UsernameNotFoundException("用户:" + username + "不存在");
         }
 
-        return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.getAuthorities());
+        return userEntity;
     }
 }
