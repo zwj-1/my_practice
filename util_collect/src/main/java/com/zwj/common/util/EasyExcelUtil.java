@@ -5,15 +5,13 @@ import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.zwj.common.litener.easyExcel.EasyExcelListener;
 import com.zwj.common.litener.easyExcel.ExcelListener;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**copy
  * @author zwj
@@ -145,5 +143,9 @@ public class EasyExcelUtil {
         }else{
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UUID.randomUUID());
     }
 }

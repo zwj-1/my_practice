@@ -38,13 +38,13 @@ public class MD5Util {
    }
 
    public static void main(String[] args) {
-      //System.out.println(MD5Util.encode("mayikt_add"));
-      String s="123456";
+      System.out.println(MD5Util.encode("234567"));
+      /*String s="123456";
       BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
       String encode1 = bCryptPasswordEncoder.encode(s);
       boolean matches = bCryptPasswordEncoder.matches(s, encode1);
       System.out.println(encode1);
-      System.out.println(matches);
+      System.out.println(matches);*/
 
    }
 }
